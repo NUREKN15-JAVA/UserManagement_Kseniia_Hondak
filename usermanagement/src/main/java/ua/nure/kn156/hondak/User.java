@@ -52,10 +52,17 @@ public class User {
 	public long getAge() {
 		Calendar calendar = Calendar.getInstance();
 		long currentYear = calendar.get(Calendar.YEAR);
+		long currentDay = calendar.get(Calendar.DAY_OF_YEAR);
 		calendar.setTime(getDate());
 		long yearOfBirth = calendar.get(Calendar.YEAR);
+		long dayOfBirth = calendar.get(Calendar.DAY_OF_YEAR);
 
-		return currentYear - yearOfBirth;
+		long age = currentYear - yearOfBirth;
+		if (currentYear < dayOfBirth) {
+			return age - 1;
+		} else {
+			return age;
+		}
 	}
 
 }
