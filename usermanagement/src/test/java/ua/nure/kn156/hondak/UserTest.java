@@ -26,7 +26,7 @@ public class UserTest extends TestCase {
 		assertEquals("Hondak,Kseniia", user.getFullName());
 	}
 
-	public void testGetFullLastNameIsNull() {
+	public void testLastNameIsNull() {
 		user.setLastName("Hondak");
 		try {
 			user.getFullName();
@@ -38,7 +38,7 @@ public class UserTest extends TestCase {
 
 	}
 
-	public void testGetFullFirstNameIsNull() {
+	public void testFirstNameIsNull() {
 		user.setFirstName("Kseniia");
 		try {
 			user.getFullName();
