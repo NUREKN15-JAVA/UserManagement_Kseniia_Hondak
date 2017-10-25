@@ -23,6 +23,7 @@
 			
 			<formatter type="plain"/>
 			
+			
 			<classpath>
 				<pathelement location="${build-dir}" />
 			</classpath>

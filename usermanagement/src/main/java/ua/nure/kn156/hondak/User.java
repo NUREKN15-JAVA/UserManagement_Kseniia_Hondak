@@ -9,6 +9,16 @@ public class User {
 	private String lastName;
 	private Date date;
 
+	public User(User user) {
+		
+		id=user.getId();
+		firstName=user.getFirstName();
+		lastName=user.getLastName();
+		date=user.getDate();
+	}
+public User(){
+	
+}
 	public Long getId() {
 		return id;
 	}
@@ -58,7 +68,6 @@ public class User {
 		long dayOfBirth = calendar.get(Calendar.DAY_OF_YEAR);
 
 		long age = currentYear - yearOfBirth;
-
 		if (currentDay < dayOfBirth) {
 			return age - 1;
 		} else {
