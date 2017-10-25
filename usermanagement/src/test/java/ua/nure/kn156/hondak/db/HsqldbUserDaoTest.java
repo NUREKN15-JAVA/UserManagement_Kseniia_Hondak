@@ -27,15 +27,15 @@ public class HsqldbUserDaoTest extends DatabaseTestCase {
 	@Override
 	protected void setUp() throws Exception {
 				super.setUp();
-				dao=new HsqldbUserDao(connectionFactory);//(ссылка на базу данных) 
+				dao=new HsqldbUserDao(connectionFactory);
 	}
 
 	public void testCreate(){
-		User user= new User(); //экземпл€р класса пользователь
+		User user= new User();
 		user.setFirstName("John");
 		user.setLastName("Doe");
 		user.setDate(new Date());
-		assertNull(user.getId());//ействительно ли пользователь не имеет ид сразу
+		assertNull(user.getId());
 		User createdUser;
 		try {
 			createdUser = dao.create(user);
