@@ -81,7 +81,7 @@ public class HsqldbUserDaoTest extends DatabaseTestCase {
 			user.setFirstName("John");
 			dao.update(user);
 			User updatedUser = dao.find(UPDATE_ID);
-            assertNotNull(" Id user`s is null", user);
+            assertNotNull(" User is not update", updatedUser);
             assertEquals(user.getFirstName(), updatedUser.getFirstName());
         } catch (DatabaseException e) {
             fail(e.toString());
@@ -97,7 +97,7 @@ public class HsqldbUserDaoTest extends DatabaseTestCase {
 			assertNotNull(" Id user`s is null", user);
 			dao.delete(user);
 			User deletedUser = dao.find(DELETE_ID);
-            assertNotNull(" Id user`s is null", deletedUser);            
+            assertNotNull(" User is not delete", deletedUser);            
         } catch (DatabaseException e) {
             fail(e.toString());
         }
