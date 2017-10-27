@@ -12,12 +12,12 @@ import java.util.LinkedList;
 
 import ua.nure.kn156.hondak.User;
 
- class HsqldbUserDao implements UserDAO {
-	 
-	 /**
-		 * Constants INSERT_QUERY, DELETE_QUERY, UPDATE_QUERY, FIND_QUERY are used 
-		 * for inserting, deleting, updating and selecting data in DB users table
-		 */
+class HsqldbUserDao implements UserDAO {
+
+	/**
+	 * Constants INSERT_QUERY, DELETE_QUERY, UPDATE_QUERY, FIND_QUERY are used
+	 * for inserting, deleting, updating and selecting data in DB users table
+	 */
 
 	private static final String DELETE_USERS_QUERY = "DELETE FROM users WHERE id = ?";
 	private static final String UPDATE_QUERY = "UPDATE users SET firstname = ?, lastname = ?, dateofbirth = ? WHERE id = ?";
@@ -27,136 +27,124 @@ import ua.nure.kn156.hondak.User;
 	private ConnectionFactory connectionFactory;
 
 	public HsqldbUserDao() {
-		
+
 	}
-	
+
 	public HsqldbUserDao(ConnectionFactory connectionFactory) {
-		this.connectionFactory=connectionFactory;
+		this.connectionFactory = connectionFactory;
 	}
-	
-	
-	
 
 	public ConnectionFactory getConnectionFactory() {
 		return connectionFactory;
 	}
 
-
-
-
 	public void setConnectionFactory(ConnectionFactory connectionFactory) {
 		this.connectionFactory = connectionFactory;
 	}
 
-
-
-
 	@Override
 	public User create(User user) throws DatabaseException {
-		try{
-			Connection connection=connectionFactory.createConnection();
-			PreparedStatement statement=connection
-					.prepareStatement(INSERT_QUERY);
+		try {
+			Connection connection = connectionFactory.createConnection();
+			PreparedStatement statement = connection.prepareStatement(INSERT_QUERY);
 			statement.setString(1, user.getFirstName());
 			statement.setString(2, user.getLastName());
 			statement.setDate(3, new Date(user.getDate().getTime()));
-			int n=statement.executeUpdate();
-			if(n!=1){
-				throw new DatabaseException("Number of inserted rows"+n);
+			int n = statement.executeUpdate();
+			if (n != 1) {
+				throw new DatabaseException("Number of inserted rows" + n);
 			}
-			CallableStatement callableStatement=connection
-					.prepareCall("call IDENTITY()");
-			ResultSet keys=callableStatement.executeQuery();
-			User insertedUser=new User(user);
-			if(keys.next()){
+			CallableStatement callableStatement = connection.prepareCall("call IDENTITY()");
+			ResultSet keys = callableStatement.executeQuery();
+			User insertedUser = new User(user);
+			if (keys.next()) {
 				insertedUser.setId(keys.getLong(1));
-				
+
 			}
 			keys.close();
+			statement.close();
 			callableStatement.close();
 			connection.close();
 			return insertedUser;
-		}catch(DatabaseException e){
+		} catch (DatabaseException e) {
 			throw e;
-			
-		}catch(SQLException e){
+
+		} catch (SQLException e) {
 			throw new DatabaseException(e);
 		}
-		
+
 	}
 
 	@Override
-	public User find(Long id) throws DatabaseException {		
+	public User find(Long id) throws DatabaseException {
 		try {
 			Connection connection = connectionFactory.createConnection();
 			PreparedStatement statement = connection.prepareStatement(SELECT_USERS_BY_ID);
 			statement.setLong(1, id);
-			ResultSet rs=statement.executeQuery();
+			ResultSet rs = statement.executeQuery();
 			User user = new User();
-			while (rs.next()) {				
+			while (rs.next()) {
 				user.setId(rs.getLong(1));
 				user.setFirstName(rs.getString(2));
 				user.setLastName(rs.getString(3));
 				user.setDate(rs.getDate(4));
-				
+
 			}
+			rs.close();
+			statement.close();
+			connection.close();
 			return user;
-		} catch(DatabaseException e) {
+		} catch (DatabaseException e) {
 			throw e;
-		} catch(SQLException e) {
+		} catch (SQLException e) {
 			throw new DatabaseException(e);
-		} 
-		
+		}
+
 	}
 
 	@Override
-	public void update(User user) throws DatabaseException {		
+	public void update(User user) throws DatabaseException {
 		try {
-			Connection connection=connectionFactory.createConnection();
-			PreparedStatement statement=connection
-					.prepareStatement(UPDATE_QUERY);
+			Connection connection = connectionFactory.createConnection();
+			PreparedStatement statement = connection.prepareStatement(UPDATE_QUERY);
 			statement.setString(1, user.getFirstName());
 			statement.setString(2, user.getLastName());
 			statement.setDate(3, new Date(user.getDate().getTime()));
 			statement.setLong(4, user.getId());
-			int n=statement.executeUpdate();
-			if(n!=1){
-				throw new DatabaseException("Number of inserted rows"+n);
+			int n = statement.executeUpdate();
+			if (n != 1) {
+				throw new DatabaseException("Number of inserted rows" + n);
 			}
 			connection.close();
 			statement.close();
-		} catch(DatabaseException e) {
+		} catch (DatabaseException e) {
 			throw e;
-		} catch(SQLException e) {
+		} catch (SQLException e) {
 			throw new DatabaseException(e);
-		} 
-		
+		}
 
 	}
 
 	@Override
 	public void delete(User user) throws DatabaseException {
 		try {
-			Connection connection=connectionFactory.createConnection();
-			PreparedStatement statement=connection
-					.prepareStatement(DELETE_USERS_QUERY);
+			Connection connection = connectionFactory.createConnection();
+			PreparedStatement statement = connection.prepareStatement(DELETE_USERS_QUERY);
 			statement.setLong(1, user.getId());
-			int n=statement.executeUpdate();
-			if(n!=1){
-				throw new DatabaseException("Number of inserted rows"+n);
+			int n = statement.executeUpdate();
+			if (n != 1) {
+				throw new DatabaseException("Number of inserted rows" + n);
 			}
 			connection.close();
 			statement.close();
-		} catch(DatabaseException e) {
+		} catch (DatabaseException e) {
 			throw e;
-		} catch(SQLException e) {
+		} catch (SQLException e) {
 			throw new DatabaseException(e);
-		} 
+		}
 
 	}
-	
-      
-	
+
 	@Override
 	public Collection<User> findAll() throws DatabaseException {
 		Collection<User> result = new LinkedList<User>();
@@ -172,15 +160,16 @@ import ua.nure.kn156.hondak.User;
 				user.setDate(resultSet.getDate(4));
 				result.add(user);
 			}
-			
-			
-		} catch(DatabaseException e) {
+			resultSet.close();
+			statement.close();
+			connection.close();
+
+		} catch (DatabaseException e) {
 			throw e;
-		} catch(SQLException e) {
+		} catch (SQLException e) {
 			throw new DatabaseException(e);
 		}
 		return result;
 	}
-	
-	
+
 }

@@ -14,24 +14,23 @@ import ua.nure.kn156.hondak.User;
 public class HsqldbUserDaoTest extends DatabaseTestCase {
 	/**
 	 * Constants FIND_ID, UPDATE_ID, DELETE_ID are used in tests such as:
-	 *testFind(), testUpdateById(), testDeleteById()
+	 * testFind(), testUpdateById(), testDeleteById()
 	 */
-	
+
 	private static final Long FIND_ID = 1000L;
 	private static final Long UPDATE_ID = 1001L;
 	private static final Long DELETE_ID = 1002L;
 	private HsqldbUserDao dao;
 	private ConnectionFactory connectionFactory;
-	
-	
+
 	@Override
 	protected void setUp() throws Exception {
-				super.setUp();
-				dao=new HsqldbUserDao(connectionFactory);
+		super.setUp();
+		dao = new HsqldbUserDao(connectionFactory);
 	}
 
-	public void testCreate(){
-		User user= new User();
+	public void testCreate() {
+		User user = new User();
 		user.setFirstName("John");
 		user.setLastName("Doe");
 		user.setDate(new Date());
@@ -46,79 +45,72 @@ public class HsqldbUserDaoTest extends DatabaseTestCase {
 		} catch (DatabaseException e) {
 			fail(e.toString());
 		}
-		
-		
+
 	}
-	
-	
-	public void testFindAll(){		
+
+	public void testFindAll() {
 		try {
 			Collection collection = dao.findAll();
 			assertNotNull("Collection is null", collection);
-            assertEquals("Collection size.", 4, collection.size());
+			assertEquals("Collection size.", 4, collection.size());
 		} catch (DatabaseException e) {
 			fail(e.toString());
 		}
 	}
-	
-	public void testFind(){		
-        try {
-            User user = dao.find(FIND_ID);
-            assertNotNull(" Id user`s is null", user);
-            assertEquals("Search user by id", FIND_ID, user.getId());
-        } catch (DatabaseException e) {
-            fail(e.toString());
-        }
-		
+
+	public void testFind() {
+		try {
+			User user = dao.find(FIND_ID);
+			assertNotNull(user);
+			assertEquals("Search user by id", FIND_ID, user.getId());
+		} catch (DatabaseException e) {
+			fail(e.toString());
+		}
+
 	}
-	
-	public void testUpdateById(){		
-        try {
-            
+
+	public void testUpdateById() {
+		try {
+
 			User user = dao.find(UPDATE_ID);
-			assertNotNull(" Id user`s is null", user);
-			
+			assertNotNull(user);
+
 			user.setFirstName("John");
 			dao.update(user);
 			User updatedUser = dao.find(UPDATE_ID);
-            assertNotNull(" User is not update", updatedUser);
-            assertEquals(user.getFirstName(), updatedUser.getFirstName());
-        } catch (DatabaseException e) {
-            fail(e.toString());
-        }
-		
+			assertNotNull(updatedUser);
+			assertEquals(user.getFirstName(), updatedUser.getFirstName());
+		} catch (DatabaseException e) {
+			fail(e.toString());
+		}
+
 	}
-	
-	public void testDeleteById(){		
+
+	public void testDeleteById() {
 		User user = null;
-        try {
-            
+		try {
+
 			user = dao.find(DELETE_ID);
-			assertNotNull(" Id user`s is null", user);
+			assertNotNull(user);
 			dao.delete(user);
 			User deletedUser = dao.find(DELETE_ID);
-            assertNotNull(" User is not delete", deletedUser);            
-        } catch (DatabaseException e) {
-            fail(e.toString());
-        }
-		
+			assertNotNull(deletedUser);
+		} catch (DatabaseException e) {
+			fail(e.toString());
+		}
+
 	}
-	
-	
 
 	@Override
 	protected IDatabaseConnection getConnection() throws Exception {
-		connectionFactory=new ConnectionFactoryImpl(
-				"org.hsqldb.jdbcDriver",
-				"jdbc:hsqldb:file:db/usermanagement",
-				"sa",
-				"");
+		connectionFactory = new ConnectionFactoryImpl("org.hsqldb.jdbcDriver", "jdbc:hsqldb:file:db/usermanagement",
+				"sa", "");
 		return new DatabaseConnection(connectionFactory.createConnection());
 	}
 
 	@Override
 	protected IDataSet getDataSet() throws Exception {
-		IDataSet dataSet=new XmlDataSet(getClass().getClassLoader().getResourceAsStream("usersDataSet.xml"));
+		IDataSet dataSet = new XmlDataSet(getClass().getClassLoader().getResourceAsStream("usersDataSet.xml"));
 		return dataSet;
 	}
 
