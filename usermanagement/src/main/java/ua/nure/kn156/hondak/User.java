@@ -9,6 +9,28 @@ public class User {
 	private String lastName;
 	private Date date;
 
+	public User(User user) {
+		
+		id=user.getId();
+		firstName=user.getFirstName();
+		lastName=user.getLastName();
+		date=user.getDate();
+	}
+public User(){
+	
+}
+public User(Long id, String firstName, String lastName, Date date ){
+	this.id=id;
+	this.firstName=firstName;
+	this.lastName=lastName;
+	this.date=date;
+	
+}
+	public User(String firstName, String lastName, Date date) {
+		this.firstName=firstName;
+		this.lastName=lastName;
+		this.date=date;
+}
 	public Long getId() {
 		return id;
 	}
@@ -58,12 +80,34 @@ public class User {
 		long dayOfBirth = calendar.get(Calendar.DAY_OF_YEAR);
 
 		long age = currentYear - yearOfBirth;
-
 		if (currentDay < dayOfBirth) {
 			return age - 1;
 		} else {
 			return age;
 		}
 	}
+	
+	@Override
+	  public int hashCode() {
+	    if (this.getId()==null) {
+	      return 0;
+	    }
+	    return this.getId().hashCode();
+	  }
+	
+	  @Override
+	  public boolean equals(Object obj) {
+	    if (obj == null) {
+	      return false;
+	    }
+	    if (this== obj) {
+	      return true;
+	    }
+	    if (this.getId()==null && ((User) obj).getId()==null){
+	      return true;
+	    }
+	    return this.getId().equals(((User) obj).getId());
+	  }
+
 
 }
