@@ -84,8 +84,8 @@ public class DetailsPanel extends JPanel implements ActionListener {
 			return lastNameField;
 		}
 
-		private void addLabeledField(JPanel panel, String labelText, JLabel textField) {
-			JLabel label= new JLabel(labelText);
+		private void addLabeledField(JPanel panel, String labelText, JTextField textField) {
+			JLabel label = new JLabel(labelText);
 			label.setLabelFor(textField);
 			panel.add(label);
 			panel.add(textField);
