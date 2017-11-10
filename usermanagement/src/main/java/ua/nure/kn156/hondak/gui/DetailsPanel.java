@@ -21,9 +21,9 @@ public class DetailsPanel extends JPanel implements ActionListener {
 		private JPanel buttonPanel;
 		private JPanel fieldPanel;
 		private JButton okButton;
-		private JLabel AgeField;
-		private JLabel lastNameField;
-		private JLabel firstNameField;
+		private JTextField AgeField;
+		private JTextField lastNameField;
+		private JTextField firstNameField;
 		private User user;
 		
 		public DetailsPanel(MainFrame frame) {
@@ -68,17 +68,17 @@ public class DetailsPanel extends JPanel implements ActionListener {
 			return fieldPanel;
 		}
 
-		private JLabel getAgeField() {
+		private JTextField getAgeField() {
 			if (AgeField == null) {
-				AgeField = new JLabel();
+				AgeField = new JTextField();
 				AgeField.setName("ageField"); //$NON-NLS-1$
 			}
 			return AgeField;
 		}
 
-		private JLabel getLastNameField() {
+		private JTextField getLastNameField() {
 			if (lastNameField == null) {
-				lastNameField = new JLabel();
+				lastNameField = new JTextField();
 				lastNameField.setName("lastNameField"); //$NON-NLS-1$
 			}
 			return lastNameField;
@@ -90,12 +90,11 @@ public class DetailsPanel extends JPanel implements ActionListener {
 			panel.add(label);
 			panel.add(textField);
 			
-			
 		}
 
-		private JLabel getFirstNameField() {
+		private JTextField getFirstNameField() {
 			if (firstNameField == null) {
-				firstNameField = new JLabel();
+				firstNameField = new JTextField();
 				firstNameField.setName("firstNameField"); //$NON-NLS-1$
 			}
 			return firstNameField;
@@ -110,11 +109,9 @@ public class DetailsPanel extends JPanel implements ActionListener {
 		}
 
 		  public void setUser(User user) {
-		        DateFormat format = DateFormat.getDateInstance();
 		        this.user = user;
 		        getFirstNameField().setText(user.getFirstName());
 		        getLastNameField().setText(user.getLastName());
 		        getAgeField().setText(String.valueOf(user.getAge()));
 		    }
 }
-

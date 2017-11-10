@@ -340,10 +340,10 @@ public class MainFrameTest extends JFCTestCase {
 			getHelper().enterClickAndLeave(new JTableMouseEventData(this, table, 0, 0, 1));
 			getHelper().enterClickAndLeave(new MouseEventData(this, detailsButton));
 			find(JPanel.class, "detailsPanel");
-			JLabel firstNameField = (JLabel) find(JLabel.class, "firstNameField");
-			JLabel lastNameField = (JLabel) find(JLabel.class, "lastNameField");
-			JLabel AgeField = (JLabel) find(JLabel.class, "ageField");
-			DateFormat formatter = DateFormat.getDateInstance();
+			JTextField firstNameField = (JTextField) find(JTextField.class, "firstNameField");
+			JTextField lastNameField = (JTextField) find(JTextField.class, "lastNameField");
+			JTextField AgeField = (JTextField) find(JTextField.class, "ageField");
+			
 			assertEquals("George", firstNameField.getText());
 			assertEquals("Bush", lastNameField.getText());
 			assertEquals("0", AgeField.getText());
