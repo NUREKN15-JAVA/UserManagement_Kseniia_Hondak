@@ -342,11 +342,11 @@ public class MainFrameTest extends JFCTestCase {
 			find(JPanel.class, "detailsPanel");
 			JLabel firstNameField = (JLabel) find(JLabel.class, "firstNameField");
 			JLabel lastNameField = (JLabel) find(JLabel.class, "lastNameField");
-			JLabel dateOfBirthField = (JLabel) find(JLabel.class, "dateOfBirthField");
+			JLabel AgeField = (JLabel) find(JLabel.class, "ageField");
 			DateFormat formatter = DateFormat.getDateInstance();
 			assertEquals("George", firstNameField.getText());
 			assertEquals("Bush", lastNameField.getText());
-			assertEquals("10.11.2017", dateOfBirthField.getText());
+			assertEquals("0", AgeField.getText());
 			JButton okButton = (JButton) find(JButton.class, "okButton");
 			mockUserDao.expectAndReturn("findAll", users);
 			getHelper().enterClickAndLeave(new MouseEventData(this, okButton));

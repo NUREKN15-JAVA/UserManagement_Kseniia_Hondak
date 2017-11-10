@@ -85,7 +85,7 @@ public class DetailsPanel extends JPanel implements ActionListener {
 		private JPanel buttonPanel;
 		private JPanel fieldPanel;
 		private JButton okButton;
-		private JLabel dateOfBirthField;
+		private JLabel AgeField;
 		private JLabel lastNameField;
 		private JLabel firstNameField;
 		private User user;
@@ -127,17 +127,17 @@ public class DetailsPanel extends JPanel implements ActionListener {
 				fieldPanel.setLayout(new GridLayout(3, 2));
 				addLabeledField(fieldPanel, Messages.getString("AddPanel.first_name"), getFirstNameField()); //$NON-NLS-1$
 				addLabeledField(fieldPanel, Messages.getString("AddPanel.last_name"), getLastNameField()); //$NON-NLS-1$
-				addLabeledField(fieldPanel, Messages.getString("AddPanel.date_of_birth"), getDateOfBirthField()); //$NON-NLS-1$
+				addLabeledField(fieldPanel, "age", getAgeField()); //$NON-NLS-1$
 			}
 			return fieldPanel;
 		}
 
-		private JLabel getDateOfBirthField() {
-			if (dateOfBirthField == null) {
-				dateOfBirthField = new JLabel();
-				dateOfBirthField.setName("dateOfBirthField"); //$NON-NLS-1$
+		private JLabel getAgeField() {
+			if (AgeField == null) {
+				AgeField = new JLabel();
+				AgeField.setName("ageField"); //$NON-NLS-1$
 			}
-			return dateOfBirthField;
+			return AgeField;
 		}
 
 		private JLabel getLastNameField() {
@@ -178,7 +178,7 @@ public class DetailsPanel extends JPanel implements ActionListener {
 		        this.user = user;
 		        getFirstNameField().setText(user.getFirstName());
 		        getLastNameField().setText(user.getLastName());
-		        getDateOfBirthField().setText(format.format(user.getDate()));
+		        getAgeField().setText(String.valueOf(user.getAge()));
 		    }
 }
 
