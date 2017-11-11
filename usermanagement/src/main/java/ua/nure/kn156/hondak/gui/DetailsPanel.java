@@ -63,7 +63,7 @@ public class DetailsPanel extends JPanel implements ActionListener {
 				fieldPanel.setLayout(new GridLayout(3, 2));
 				addLabeledField(fieldPanel, Messages.getString("AddPanel.first_name"), getFirstNameField()); //$NON-NLS-1$
 				addLabeledField(fieldPanel, Messages.getString("AddPanel.last_name"), getLastNameField()); //$NON-NLS-1$
-				addLabeledField(fieldPanel, "age", getAgeField()); //$NON-NLS-1$
+				addLabeledField(fieldPanel, Messages.getString("DetailsPanel.age"), getAgeField());  //$NON-NLS-1$
 			}
 			return fieldPanel;
 		}
@@ -102,7 +102,7 @@ public class DetailsPanel extends JPanel implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (Messages.getString("DetailsPanel.0").equalsIgnoreCase(e.getActionCommand())) //$NON-NLS-1$
+			if ("".equalsIgnoreCase(e.getActionCommand())) //$NON-NLS-1$
 				this.setVisible(false);
 			this.setVisible(false);
 			parent.showBrowsePanel();
