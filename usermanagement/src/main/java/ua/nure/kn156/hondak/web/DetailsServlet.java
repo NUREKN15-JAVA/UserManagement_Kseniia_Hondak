@@ -16,9 +16,9 @@ public class DetailsServlet extends EditServlet {
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if (req.getParameter("okButton") != null) {
             doOk(req, resp);
-        } else {
-            showPage(req, resp);
+      
         }
+        showPage(req, resp);
     }
     @Override
    
@@ -27,7 +27,7 @@ public class DetailsServlet extends EditServlet {
 
     }
     private void doOk(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/browse.jsp").forward(req, resp);
+        req.getRequestDispatcher("/browse").forward(req, resp);
         
     }
 }
