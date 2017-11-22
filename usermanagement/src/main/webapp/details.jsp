@@ -3,11 +3,11 @@
 <html>
 <head><title>User management. Details</title></head>
 <body>
-     First name: ${user.firstName}<br>
+    First name: ${user.firstName}<br>
     Last name: ${user.lastName}<br>
     Date of birth: <fmt:formatDate value="${user.dateOfBirth}" type="date" dateStyle="medium"/><br>
 
-    <form method="get" action="${requestScope.contextPath}/details">
+    <form action="<%=request.getContextPath()%>/details" method="get">
         <input type="submit" name="okButton" value="Ok">
     </form>
     <c:if test="${requestScope.error != null}">

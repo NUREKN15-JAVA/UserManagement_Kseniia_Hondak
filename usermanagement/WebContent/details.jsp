@@ -4,13 +4,11 @@
 <head><title>User management. Details</title></head>
 <body>
    
+    First name: ${user.firstName}<br>
+    Last name: ${user.lastName}<br>
+    Date of birth: <fmt:formatDate value="${user.dateOfBirth}" type="date" dateStyle="medium"/><br>
   
-   
-
-    <form method="get" action="${requestScope.contextPath}/details">
-     <p><b>First name:</b> ${user.firstName}</p>
-    <p><b>Last name:</b> ${user.lastName}</p>
-    <p><b>Date of birth:</b> <fmt:formatDate value="${user.dateOfBirth}" type="date" dateStyle="medium"/></p>
+    <form action="<%=request.getContextPath()%>/details" method="get">
         <input type="submit" name="okButton" value="Ok">
     </form>
     <c:if test="${requestScope.error != null}">
