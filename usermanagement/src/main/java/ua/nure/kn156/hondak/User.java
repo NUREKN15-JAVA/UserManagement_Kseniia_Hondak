@@ -7,8 +7,30 @@ public class User {
 	private Long id;
 	private String firstName;
 	private String lastName;
-	private Date date;
+	private Date dateOfBirth;
 
+	public User(User user) {
+		
+		id=user.getId();
+		firstName=user.getFirstName();
+		lastName=user.getLastName();
+		dateOfBirth=user.getDateOfBirth();
+	}
+public User(){
+	
+}
+public User(Long id, String firstName, String lastName, Date date ){
+	this.id=id;
+	this.firstName=firstName;
+	this.lastName=lastName;
+	this.dateOfBirth=date;
+	
+}
+	public User(String firstName, String lastName, Date date) {
+		this.firstName=firstName;
+		this.lastName=lastName;
+		this.dateOfBirth=date;
+}
 	public Long getId() {
 		return id;
 	}
@@ -33,12 +55,12 @@ public class User {
 		this.lastName = lastName;
 	}
 
-	public Date getDate() {
-		return date;
+	public Date getDateOfBirth() {
+		return dateOfBirth;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
+	public void setDateOfBirth(Date date) {
+		this.dateOfBirth = date;
 	}
 
 	public String getFullName() {
@@ -53,17 +75,39 @@ public class User {
 		Calendar calendar = Calendar.getInstance();
 		long currentYear = calendar.get(Calendar.YEAR);
 		long currentDay = calendar.get(Calendar.DAY_OF_YEAR);
-		calendar.setTime(getDate());
+		calendar.setTime(getDateOfBirth());
 		long yearOfBirth = calendar.get(Calendar.YEAR);
 		long dayOfBirth = calendar.get(Calendar.DAY_OF_YEAR);
 
 		long age = currentYear - yearOfBirth;
-
 		if (currentDay < dayOfBirth) {
 			return age - 1;
 		} else {
 			return age;
 		}
 	}
+	
+	@Override
+	  public int hashCode() {
+	    if (this.getId()==null) {
+	      return 0;
+	    }
+	    return this.getId().hashCode();
+	  }
+	
+	  @Override
+	  public boolean equals(Object obj) {
+	    if (obj == null) {
+	      return false;
+	    }
+	    if (this== obj) {
+	      return true;
+	    }
+	    if (this.getId()==null && ((User) obj).getId()==null){
+	      return true;
+	    }
+	    return this.getId().equals(((User) obj).getId());
+	  }
+
 
 }
